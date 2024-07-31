@@ -38,8 +38,8 @@ services:
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
         volumes:
-            - 'idco-mysql:/var/lib/mysql'
-            - './.docker/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+            - 'data-mysql:/var/lib/mysql'
+            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - idco-network
         healthcheck:
@@ -56,7 +56,7 @@ services:
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
-            - 'idco-redis:/data'
+            - 'data-redis:/data'
         networks:
             - idco-network
         healthcheck:
@@ -71,7 +71,9 @@ networks:
         name: idco-network
         driver: bridge
 volumes:
-    idco-mysql:
+    data-mysql:
+        name: idco-mysql
         driver: local
-    idco-redis:
+    data-redis:
+        name: idco-redis
         driver: local
