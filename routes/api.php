@@ -10,6 +10,14 @@ Route::get('/', function (\App\Http\Filters\Filter $filter) {
     ]);
 });
 
+
+Route::group(['prefix' => '/customers'], function($route) {
+    $route->get('/{id}', [\App\Http\ApiControllers\CustomerController::class, 'show']);
+    $route->get('/', [\App\Http\ApiControllers\CustomerController::class, 'index']);
+    $route->post('/', [\App\Http\ApiControllers\CustomerController::class, 'save']);
+    $route->delete('/{id}', [\App\Http\ApiControllers\CustomerController::class, 'delete']);
+});
+
 Route::get('/fltypes', function (\App\Http\Filters\Filter $filter) {
     return \App\Http\Resources\Resource::collection(
         \App\Models\Fltype::filter($filter)->collective()
