@@ -2,7 +2,7 @@
 
 namespace App\Http\Filters;
 
-class ToolFilter extends Filter
+class ProtypeFilter extends Filter
 {
     //
 }

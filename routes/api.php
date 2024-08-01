@@ -52,8 +52,8 @@ Route::group(['prefix' => '/coats'], function($route) {
 });
 
 Route::group(['prefix' => '/tools'], function($route) {
-    $route->get('/{id}', [\App\Http\ApiControllers\ToolController::class, 'show']);
-    $route->get('/', [\App\Http\ApiControllers\ToolController::class, 'index']);
-    $route->post('/', [\App\Http\ApiControllers\ToolController::class, 'save']);
-    $route->delete('/{id}', [\App\Http\ApiControllers\ToolController::class, 'delete']);
+    $route->get('/{id}', [\App\Http\ApiControllers\ProtypeController::class, 'show']);
+    $route->get('/', [\App\Http\ApiControllers\ProtypeController::class, 'index']);
+    $route->post('/', [\App\Http\ApiControllers\ProtypeController::class, 'save']);
+    $route->delete('/{id}', [\App\Http\ApiControllers\ProtypeController::class, 'delete']);
 });

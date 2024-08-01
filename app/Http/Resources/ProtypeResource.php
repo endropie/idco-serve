@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class ToolResource extends Resource
+class ProtypeResource extends Resource
 {
     /**
      * Transform the resource into an array.

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Recordset\Concerns\HasFilterable;
 
-class Tool extends Model
+class Protype extends Model
 {
     use HasFilterable;
 

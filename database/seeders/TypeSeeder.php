@@ -14,7 +14,7 @@ class TypeSeeder extends Seeder
         $this->createR0types();
         $this->createFltypes();
         $this->createMaterials();
-        $this->createTools();
+        $this->createProtypes();
         $this->createCoats();
     }
 
@@ -103,7 +103,7 @@ class TypeSeeder extends Seeder
         });
     }
 
-    protected function createTools()
+    protected function createProtypes()
     {
         $array = collect([
             "Shank Tools",
@@ -140,7 +140,7 @@ class TypeSeeder extends Seeder
 
         $array->each(function ($e)  {
             $request = new Request(['name' => $e]);
-            app(\App\Http\ApiControllers\ToolController::class)->save($request);
+            app(\App\Http\ApiControllers\ProtypeController::class)->save($request);
         });
     }
 }

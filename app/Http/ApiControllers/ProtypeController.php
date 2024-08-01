@@ -2,25 +2,25 @@
 
 namespace App\Http\ApiControllers;
 
-use App\Http\Filters\ToolFilter;
-use App\Models\Tool;
-use App\Http\Resources\ToolResource;
+use App\Http\Filters\ProtypeFilter;
+use App\Models\Protype;
+use App\Http\Resources\ProtypeResource;
 use Illuminate\Http\Request;
 
-class ToolController extends Controller
+class ProtypeController extends Controller
 {
-    public function index (ToolFilter $filter)
+    public function index (ProtypeFilter $filter)
     {
-        $collection = Tool::filter($filter)->collective();
+        $collection = Protype::filter($filter)->collective();
 
-        return ToolResource::collection($collection);
+        return ProtypeResource::collection($collection);
     }
 
     public function show ($id)
     {
-        $record = Tool::findOrFail($id);
+        $record = Protype::findOrFail($id);
 
-        return new ToolResource($record);
+        return new ProtypeResource($record);
     }
 
     public function save (Request $request)
@@ -36,8 +36,8 @@ class ToolController extends Controller
 
         app('db')->beginTransaction();
 
-        /** @var Tool $record*/
-        $record = Tool::firstOrNew(['id' => intval($request->id)]);
+        /** @var Protype $record*/
+        $record = Protype::firstOrNew(['id' => intval($request->id)]);
 
         $record->fill($row);
 
@@ -47,14 +47,14 @@ class ToolController extends Controller
 
         $message = "The record has been saved.";
 
-        return (new ToolResource($record))->additional([
+        return (new ProtypeResource($record))->additional([
             "message" => $message,
         ]);
     }
 
     public function delete ($id)
     {
-        $record = Tool::findOrFail($id);
+        $record = Protype::findOrFail($id);
 
         $record->delete();
 
