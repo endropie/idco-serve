@@ -24,7 +24,6 @@ Route::get('/fltypes', function (\App\Http\Filters\Filter $filter) {
     );
 });
 
-
 Route::get('/rtypes', function (\App\Http\Filters\Filter $filter) {
     return \App\Http\Resources\Resource::collection(
         \App\Models\Rtype::filter($filter)->collective()
@@ -51,9 +50,16 @@ Route::group(['prefix' => '/coats'], function($route) {
     $route->delete('/{id}', [\App\Http\ApiControllers\CoatController::class, 'delete']);
 });
 
-Route::group(['prefix' => '/tools'], function($route) {
+Route::group(['prefix' => '/protypes'], function($route) {
     $route->get('/{id}', [\App\Http\ApiControllers\ProtypeController::class, 'show']);
     $route->get('/', [\App\Http\ApiControllers\ProtypeController::class, 'index']);
     $route->post('/', [\App\Http\ApiControllers\ProtypeController::class, 'save']);
     $route->delete('/{id}', [\App\Http\ApiControllers\ProtypeController::class, 'delete']);
+});
+
+Route::group(['prefix' => '/receive-orders'], function($route) {
+    $route->get('/{id}', [\App\Http\ApiControllers\ReceiveOrderController::class, 'show']);
+    $route->get('/', [\App\Http\ApiControllers\ReceiveOrderController::class, 'index']);
+    $route->post('/', [\App\Http\ApiControllers\ReceiveOrderController::class, 'save']);
+    $route->delete('/{id}', [\App\Http\ApiControllers\ReceiveOrderController::class, 'delete']);
 });

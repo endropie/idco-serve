@@ -26,7 +26,7 @@ class ProtypeController extends Controller
     public function save (Request $request)
     {
         $request->validate([
-            "id" => "nullable|exists:tools,id",
+            "id" => "nullable|exists:protypes,id",
             "name" => "required",
         ]);
 
