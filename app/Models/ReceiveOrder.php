@@ -10,6 +10,11 @@ class ReceiveOrder extends Model
 {
     use HasGenerateNumber, HasFilterable;
 
+    protected $fillable = [
+        'number', 'date', 'due', 'reference', 'type', 'description',
+        'customer_id', 'customer_name', 'customer_contact', 'customer_address',
+    ];
+
     public function items()
     {
         return $this->hasMany(ReceiveOrderItem::class);
