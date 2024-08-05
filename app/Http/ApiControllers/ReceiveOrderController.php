@@ -2,24 +2,23 @@
 
 namespace App\Http\ApiControllers;
 
-use App\Http\Filters\CoatFilter;
-use App\Models\Coat;
+use App\Http\Filters\ReceiveOrderFilter;
 use App\Http\Resources\ReceiveOrderResource;
 use App\Models\ReceiveOrder;
 use Illuminate\Http\Request;
 
 class ReceiveOrderController extends Controller
 {
-    public function index (CoatFilter $filter)
+    public function index (ReceiveOrderFilter $filter)
     {
-        $collection = Coat::filter($filter)->collective();
+        $collection = ReceiveOrder::filter($filter)->collective();
 
         return ReceiveOrderResource::collection($collection);
     }
 
     public function show ($id)
     {
-        $record = Coat::findOrFail($id);
+        $record = ReceiveOrder::findOrFail($id);
 
         return new ($record);
     }
@@ -27,7 +26,7 @@ class ReceiveOrderController extends Controller
     public function save (Request $request)
     {
         $request->validate([
-            "id" => "nullable|exists:coats,id",
+            "id" => "nullable|exists:receive_orders,id",
             "type" => "required|in:". collect(\App\Enums\OrderType::cases())->pluck('value')->join(','),
             "number" => "nullable|unique:receive_orders,number,". $request->get('id') .",id",
             "date" => "required|date",
@@ -104,7 +103,7 @@ class ReceiveOrderController extends Controller
 
     public function delete ($id)
     {
-        $record = Coat::findOrFail($id);
+        $record = ReceiveOrder::findOrFail($id);
 
         $record->delete();
 
