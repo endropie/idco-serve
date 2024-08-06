@@ -33,16 +33,25 @@ class ReceiveOrder extends Model
     public function setNumber()
     {
 
-        if (!str($this->number)->startsWith('DRAFT-')) return;
+        if (str($this->number)->startsWith('DRAFT-')) {
 
-        $prefix = 'SO';
-        $digits = 5;
-        $separator = '/';
+            $prefix = 'SO';
+            $digits = 5;
+            $separator = '/';
 
-        $strtime = date("Y" .$separator ."m");
-        $strset = $prefix . $separator . $strtime . $separator . "{number}";
+            $strtime = date("Y" .$separator ."m");
+            $strset = $prefix . $separator . $strtime . $separator . "{number}";
 
-        \App\Jobs\GenerateNumber::dispatchSync($this, $strset, $digits);
+            $numberset = (string) str($strset)->replace("{number}", "");
+
+            $number = $this->getNumberNextQuery($numberset, $digits);
+            $number = (string) str($strset)->replace("{number}", $number);
+
+            $this->setAttribute('number', $number);
+            $this->save();
+
+            // \App\Jobs\GenerateNumber::dispatchSync($this, $strset, $digits);
+        }
     }
 
     static function booted()

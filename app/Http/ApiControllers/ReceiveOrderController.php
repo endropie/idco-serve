@@ -20,7 +20,7 @@ class ReceiveOrderController extends Controller
     {
         $record = ReceiveOrder::findOrFail($id);
 
-        return new ($record);
+        return new ReceiveOrderResource($record);
     }
 
     public function save (Request $request)
@@ -70,8 +70,8 @@ class ReceiveOrderController extends Controller
                 $requestItem = new Request($requestItem);
 
                 $fillItem = [
-                    'name', 'quantity', 'condition', 'hrc', 'dimension',
-                    'protype_id', 'material_id', 'coat_id', 'rtype', 'r0type', 'fltype'
+                    'name', 'quantity', 'weight', 'condition', 'hrc', 'dimension', 'isexpress',
+                    'protype_id', 'material_id', 'coat_id', 'rtype', 'r0type', 'fltype',
                 ];
 
                 $rowItem = $requestItem->only($fillItem);
@@ -90,13 +90,9 @@ class ReceiveOrderController extends Controller
 
         $record->setNumber();
 
-        return $record;
-
-        app('db')->commit();
-
         $message = "The record has been saved.";
 
-        return (new ($record))->additional([
+        return (new ReceiveOrderResource($record))->additional([
             "message" => $message,
         ]);
     }

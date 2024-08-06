@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('receive_orders', function (Blueprint $table) {
             $table->id();
             $table->string('type')->default('PURCHASE');
-            $table->string('number');
+            $table->string('number')->unique();
             $table->date('date');
             $table->date('due')->nullable();
             $table->string('reference')->nullable();
@@ -40,8 +40,10 @@ return new class extends Migration
 
             $table->string('name');
             $table->integer('quantity');
+            $table->decimal('weight');
             $table->string('condition')->nullable();
             $table->string('hrc')->nullable();
+            $table->string('isexpress');
 
             $table->jsonb('dimension')->nullable();
             $table->foreignId('protype_id')->constrained()->on('protypes')->references('id')->restrictOnDelete();

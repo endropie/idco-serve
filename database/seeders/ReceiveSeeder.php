@@ -34,11 +34,18 @@ class ReceiveSeeder extends Seeder
     {
         $items = collect();
         for ($i=0; $i < 10; $i++) {
+            $dimension = rand(0,10) > 3
+                ? ['p' => rand(1,15), "l" => rand(1,15), "t" => rand(1,15)]
+                : ['o' => rand(1,15), "p" => rand(1,15)];
+
             $items->push([
                 "name" => $this->fake->word ."-". $this->fake->unique()->numberBetween(10000, 999999),
                 "quantity" => $this->fake->numberBetween(1, 15),
+                "weight" => rand(1, 15) * 0.8,
                 "hrc" => "HRC-". $this->fake->numberBetween(1, 5),
+                "isexpress" => rand(0, 10) > 4 ? false : true,
                 "condition" => null,
+                "dimension" => $dimension,
                 "material_id" => $this->materials->random()->id,
                 "coat_id" => $this->coats->random()->id,
                 "protype_id" => $this->protypes->random()->id,

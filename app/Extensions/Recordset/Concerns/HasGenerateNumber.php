@@ -8,8 +8,8 @@ trait HasGenerateNumber
         $next = $this->when($this->forceDeleting === false, function ($q) {
                 return $q->withTrashed();
             })
-            ->selectRaw("MAX(REPLACE($fieldName, \"$string\", '') * 1) AS N")
-            ->where($fieldName, 'LIKE', '%'.$string)->get()->max('N');
+            ->selectRaw("MAX(REPLACE($fieldName, '$string', '') * 1) AS N")
+            ->where($fieldName, 'LIKE', "%$string%")->get()->max('N');
 
         $next = (int) $next + 1;
 

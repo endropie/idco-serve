@@ -14,6 +14,9 @@ class ReceiveOrderItemResource extends Resource
     {
         return [
             $this->mergeAttributes(),
+            $this->mergeInclude('material', fn () => new Resource($this->resource->material)),
+            $this->mergeInclude('coat', fn () => new Resource($this->resource->coat)),
+            $this->mergeInclude('protype', fn () => new Resource($this->resource->material)),
         ];
     }
 }
