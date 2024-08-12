@@ -2,12 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function (\App\Http\Filters\Filter $filter) {
+Route::get('/', function () {
     return response()->json([
         'app' => env('APP_NAME'),
         'version' => "v0.0",
-        'Build' => "Laravel v". app()->version(),
+        'build' => "Laravel v". app()->version(),
     ]);
+});
+
+Route::group(['prefix' => '/auth'], function($route) {
+    $route->post('/login', [\App\Http\ApiControllers\AuthController::class, 'login']);
+    $route->get('/user', [\App\Http\ApiControllers\AuthController::class, 'show'])->middleware(['auth:sanctum']);
 });
 
 
